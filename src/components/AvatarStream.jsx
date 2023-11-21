@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react'
 import useStreamContext from '../hooks/useStreamContext'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import useSettingsContext from '../hooks/useSettingsContext'
-import Button from './button'
+import Button from './Button'
 import { GridLoader } from 'react-spinners'
 
 
@@ -52,11 +51,11 @@ export default function AvatarStream({ message, audio }) {
     }
   };
 
-  const onAnimationComplete = () => {
-    if (controls.current === 'fadeOut') {
-      controls.start('hidden');
-    }
-  }
+  // const onAnimationComplete = () => {
+  //   if (controls.current === 'fadeOut') {
+  //     controls.start('hidden');
+  //   }
+  // }
 
   return (
     <div className={showAvatarAndChat ? AvatarAndChatClass : `${AvatarOnlyClass} bg-gradient-to-b from-transparent from-40% via-slate-900 via-70% to-transparent`}>
@@ -117,12 +116,6 @@ export default function AvatarStream({ message, audio }) {
   )
 }
 
-const fadeIn = {
-  opacity: 1
-}
-const fadeOut = {
-  opacity: 0
-}
 
 const fadeInOut = {
   fadeIn: {
@@ -130,21 +123,6 @@ const fadeInOut = {
   },
   fadeOut: {
     opacity: 0,
-  }
-}
-
-const fadeInVariant = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  },
-  transition: {
-    duration: 1
   }
 }
 

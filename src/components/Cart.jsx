@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { motion, AnimatePresence, easeInOut } from 'framer-motion'
-import Button from './button'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import Button from './Button'
 import toast, { Toaster } from 'react-hot-toast'
 import useFetch from '../hooks/useFetch';
-import { useFetcher, useRevalidator } from 'react-router-dom';
 
 const LOCAL = import.meta.env.VITE_LOCAL_URL
 const notify = () => toast.success('Bestellung abgeschlossen!');

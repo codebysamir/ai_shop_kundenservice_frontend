@@ -4,7 +4,7 @@ import { Form, useActionData, useNavigation } from 'react-router-dom'
 import useFetch from '../hooks/useFetch'
 import { GridLoader } from 'react-spinners'
 import toast, { Toaster } from 'react-hot-toast'
-import Button from './button'
+import Button from './Button'
 
 const LOCAL_URL = import.meta.env.VITE_LOCAL_URL
 

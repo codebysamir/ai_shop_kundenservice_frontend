@@ -1,8 +1,8 @@
 import { PauseCircle, PlayCircle, SpinnerGap } from '@phosphor-icons/react'
 import React, { useEffect, useRef, useState } from 'react'
 
-export default function AudioPlayer({ currentAudio, audioCount, audioIndex }) {
-    const [duration, setDuration] = useState(0)
+export default function AudioPlayer({ currentAudio }) {
+    // const [duration, setDuration] = useState(0)
     const [isReady, setIsReady] = useState(false)
     const [isPlaying, setIsPlaying] = useState(false)
     const audioRef = useRef(null)
@@ -26,8 +26,8 @@ export default function AudioPlayer({ currentAudio, audioCount, audioIndex }) {
         <audio 
             ref={audioRef} 
             preload='metadata'
-            onDurationChange={(e) => setDuration(e.currentTarget.duration)}
-            onCanPlay={e => setIsReady(true)}
+            // onDurationChange={(e) => setDuration(e.currentTarget.duration)}
+            onCanPlay={() => setIsReady(true)}
             onPlaying={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
             onEnded={() => setIsPlaying(false)}
