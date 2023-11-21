@@ -81,8 +81,9 @@ export default function AvatarStream({ message, audio }) {
             !error ?
               <motion.video ref={videoRef} playsInline width={showAvatarAndChat ? "50%" : "700"} height="700" autoPlay className='rounded-full' initial={'fadeIn'} animate={controls} variants={fadeInOut} onEnded={onVideoEnd} src={peerConnection && idleVideo} ></motion.video>
               :
-              <div className='h-[30vh] grid place-content-center'>
-                <Button onClick={handleGetStream}>Something went wrong, try again.</Button>
+              <div className='h-[30vh] grid place-content-center gap-4'>
+                <span>Something went wrong, try again.</span>
+                <Button onClick={handleGetStream}>Reload Avatar</Button>
               </div>
           :
             <div className='h-[30vh] grid place-content-center'>

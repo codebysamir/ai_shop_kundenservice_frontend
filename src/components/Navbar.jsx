@@ -7,7 +7,7 @@ import useStreamContext from '../hooks/useStreamContext'
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false)
-  const {enableAvatar, setEnableAvatar, showAvatarDetails, setShowAvatarDetails, showAvatarAndChat, setShowAvatarAndChat, tts, setTts, gender, setGender, voiceLanguage, setVoiceLanguage} = useSettingsContext()
+  const {enableAvatar, setEnableAvatar, showAvatarDetails, setShowAvatarDetails, showAvatarAndChat, setShowAvatarAndChat, setTts, setGender, setVoiceLanguage} = useSettingsContext()
   const { avatarCredits, elevenlabsCredits } = useStreamContext()
 
   return (

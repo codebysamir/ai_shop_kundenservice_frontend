@@ -7,8 +7,8 @@ import ErrorPage from './pages/ErrorPage'
 import ChatPage, { action as chatAction, loader as chatLoader } from './pages/ChatPage'
 import Dashboard, { action as dashboardAction } from './components/Dashboard'
 import WelcomePage from './pages/WelcomePage'
-import StreamProvider from './context/streamContext'
-import SettingsProvider from './context/SettingsContext'
+import { StreamProvider } from './context/StreamContext'
+import { SettingsProvider } from './context/SettingsContext'
 
 const router = createBrowserRouter([
   {

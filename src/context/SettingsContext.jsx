@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react'
 
 export const SettingsContext = createContext(null)
 
-export default function SettingsProvider({ children }) {
+export function SettingsProvider({ children }) {
     const [enableAvatar, setEnableAvatar] = useState(false)
     const [showAvatarDetails, setShowAvatarDetails] = useState(false)
     const [showAvatarAndChat, setShowAvatarAndChat] = useState(false)

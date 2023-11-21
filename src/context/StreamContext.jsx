@@ -6,7 +6,7 @@ const LOCAL = import.meta.env.VITE_LOCAL_URL
 
 export const StreamContext = createContext(null)
 
-export default function StreamProvider({ children }) {
+export function StreamProvider({ children }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const [avatarCredits, setAvatarCredits] = useState(null)
@@ -39,8 +39,6 @@ export default function StreamProvider({ children }) {
         const controller = new AbortController()
         if (enableAvatar) {
             console.log('Avatar enabled...')
-            setError(false)
-            setLoading(true)
             // stopAllStreams()
             closePC()
             startStream(gender, controller)
@@ -59,6 +57,7 @@ export default function StreamProvider({ children }) {
     useEffect(() => {
         if (peerConnectionState){
             setLoading(false)
+            setError(false)
         }
     }, [peerConnectionState])
 
@@ -68,6 +67,8 @@ export default function StreamProvider({ children }) {
         if (peerConnectionState && peerConnectionState?.connectionState === 'connected') {
             return;
         }
+        setError(false)
+        setLoading(true)
     
         stopAllStreams();
         closePC();
