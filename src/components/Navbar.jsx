@@ -17,7 +17,7 @@ export default function Navbar() {
         <h1 className='text-3xl font-bold'>AI Kundenservice</h1>
         <ul>
             <li className='mb-4'>
-                <NavLink to={'/chat'} className={({ isActive, isPending }) => isActive ? isActiveClass : isPending ? isPendingClass : 'hover:bg-slate-400 p-2 rounded-md cursor-pointer uppercase'}>Chat</NavLink>
+                <NavLink to={'/'} className={({ isActive, isPending }) => isActive ? isActiveClass : isPending ? isPendingClass : 'hover:bg-slate-400 p-2 rounded-md cursor-pointer uppercase'}>Chat</NavLink>
             </li>
             <li className='mb-4'>
                 <NavLink to={'/dashboard'} className={({ isActive, isPending }) => isActive ? isActiveClass : isPending ? isPendingClass : 'hover:bg-slate-400 p-2 rounded-md cursor-pointer uppercase'}>
@@ -139,4 +139,4 @@ const dropIn = {
   }
   
   const isActiveClass = 'bg-indigo-800 p-2 rounded-md cursor-pointer uppercase'
-  const isPendingClass = 'bg-red-400 p-2 rounded-md cursor-pointer uppercase'
+  const isPendingClass = 'bg-indigo-400 p-2 rounded-md cursor-pointer uppercase'
