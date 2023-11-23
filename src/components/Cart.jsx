@@ -47,7 +47,7 @@ export default function Cart({ cartItems, checkout, revalidator }) {
   }
 
   return (
-    <motion.div layout layoutRoot key={'cartIn'} variants={dropIn} transition={transition} initial={'hidden'} animate={'visible'} exit={'exit'} className={`fixed right-0 top-0 grid justify-center h-screen ${goCheckout ? 'w-screen bg-slate-900 bg-opacity-95' : 'w-80'} p-4 items-center`}>
+    <motion.div layout layoutRoot key={'cartIn'} variants={dropIn} transition={transition} initial={'hidden'} animate={'visible'} exit={'exit'} className={`fixed right-0 top-0 grid justify-center h-screen min-w-[15rem] ${goCheckout ? 'w-screen bg-slate-900 bg-opacity-95' : 'w-60 2xl:w-80'} p-4 items-center`}>
         <motion.div layout="position" className={`flex flex-col gap-4 rounded-xl bg-slate-100 min-h-[30dvh] max-h-[80dvh] text-slate-900 font-semibold p-4 ${goCheckout ? 'w-[50vw]' : 'w-full'}`}>
             <motion.h2 layout="position" className='text-2xl text-center uppercase'>Warenkorb</motion.h2>
             <motion.div layout className='flex flex-col gap-2 h-fit min-h-32 my-8 mx-auto'>

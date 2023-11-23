@@ -88,7 +88,7 @@ export default function ChatPage() {
 
   return (
     <div className=''>
-      <div className='relative left-1/2 -translate-x-1/2 max-w-screen-lg h-screen'>
+      <div className='relative left-1/2 -translate-x-1/2 2xl:max-w-screen-lg max-w-[50dvw] h-screen'>
           <ChatHistory chat={chat} audio={audio} />
           <ChatInput ref={chatRef} prompt={prompt} setPrompt={setPrompt} chatHistory={chat} />
       </div>

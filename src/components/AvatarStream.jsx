@@ -78,7 +78,7 @@ export default function AvatarStream({ message, audio }) {
           {
           !loading ?
             !error ?
-              <motion.video ref={videoRef} playsInline width={showAvatarAndChat ? "50%" : "700"} height="700" autoPlay className='rounded-full' initial={'fadeIn'} animate={controls} variants={fadeInOut} onEnded={onVideoEnd} src={peerConnection && idleVideo} ></motion.video>
+              <motion.video ref={videoRef} playsInline autoPlay className={`rounded-full ${showAvatarAndChat ? "h-[40vh] w-[40vh]" : "h-[70vh] w-[70vh]"}`} initial={'fadeIn'} animate={controls} variants={fadeInOut} onEnded={onVideoEnd} src={peerConnection && idleVideo} ></motion.video>
               :
               <div className='h-[30vh] grid place-content-center gap-4'>
                 <span>Something went wrong, try again.</span>

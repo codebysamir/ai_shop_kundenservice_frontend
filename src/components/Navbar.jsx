@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ArrowFatLinesLeft, ArrowFatLinesRight } from '@phosphor-icons/react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence, easeInOut } from 'framer-motion'
 import useSettingsContext from '../hooks/useSettingsContext'
 import useStreamContext from '../hooks/useStreamContext'
@@ -9,6 +9,8 @@ export default function Navbar() {
   const [showNav, setShowNav] = useState(false)
   const {enableAvatar, setEnableAvatar, showAvatarDetails, setShowAvatarDetails, showAvatarAndChat, setShowAvatarAndChat, setTts, setGender, setVoiceLanguage} = useSettingsContext()
   const { avatarCredits, elevenlabsCredits } = useStreamContext()
+  const location = useLocation()
+  const urlPath = location.pathname
 
   return (
     <AnimatePresence initial={false} mode='wait'>
@@ -26,6 +28,7 @@ export default function Navbar() {
             </li>
         </ul>
         <div className='flex flex-col gap-4 mt-auto' >
+            {!urlPath.includes('dashboard') &&
             <fieldset className='flex flex-col gap-3'>
                 <legend className='pt-4 font-bold uppercase text-lg'>Options </legend>
                 <span className='mt-6 font-bold text-neutral-400'>Enable Avatar</span>
@@ -40,7 +43,8 @@ export default function Navbar() {
                 :
                 <span className='text-neutral-500 font-semibold text-sm'>No available Credits left</span>
                 }
-                <div className={`flex flex-col gap-3 rounded-md p-4 overflow-y-auto max-h-96 ${!enableAvatar && 'bg-neutral-600 opacity-10 pointer-events-none'}`}>
+                {enableAvatar &&
+                <div className={`flex flex-col gap-3 rounded-md p-4 overflow-y-auto scrollbar-w::-webkit-scrollbar scrollbar-w sm:max-h-[15dvh] lg:max-h-[20dvh] xl:max-h-[35dvh] ${!enableAvatar && 'bg-neutral-600 opacity-10 pointer-events-none'}`}>
                     <span className='font-bold text-neutral-400'>Avatar Settings</span>
                     <div className='flex flex-col pl-4 gap-2'>
                         <div className='flex gap-2'>
@@ -96,8 +100,8 @@ export default function Navbar() {
                             <label htmlFor="english">English</label>
                         </div>
                     </div>
-                </div>
-            </fieldset>
+                </div>}
+            </fieldset>}
         </div>
         <div className='flex flex-col gap-4 mt-auto' >
             <motion.button whileHover={{ scale: 1.1}} whileTap={{ scale: 0.9 }} type="button" onClick={() => setShowNav(false)} className='mr-auto' >
