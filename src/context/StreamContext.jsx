@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import useFetch from '../hooks/useFetch'
 import useSettingsContext from '../hooks/useSettingsContext'
+import maleIdleVideo from '../idle_male.mp4'
+import femaleIdleVideo from '../idle8.mp4'
 
 const LOCAL = import.meta.env.VITE_LOCAL_URL
 
@@ -26,7 +28,7 @@ export function StreamProvider({ children }) {
     let connectionState
     let signalingState
 
-    const idleVideo = gender === 'male' ? ('./src/idle_male.mp4') : (gender === 'female' && ('./src/idle8.mp4'))
+    const idleVideo = gender === 'male' ? (maleIdleVideo) : (gender === 'female' && (femaleIdleVideo))
 
     console.log(peerConnectionState)
     console.log(peerConnectionLocal)
@@ -113,6 +115,7 @@ export function StreamProvider({ children }) {
         if (tts === 'microsoft_tts') {
             formData.append('message', message)
         }
+        console.log(tts)
         formData.append('tts', tts)
         formData.append('gender', gender)
         formData.append('language', voiceLanguage)

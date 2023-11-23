@@ -7,7 +7,7 @@ import useStreamContext from '../hooks/useStreamContext'
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false)
-  const {enableAvatar, setEnableAvatar, showAvatarDetails, setShowAvatarDetails, showAvatarAndChat, setShowAvatarAndChat, setTts, setGender, setVoiceLanguage} = useSettingsContext()
+  const {enableAvatar, setEnableAvatar, showAvatarDetails, setShowAvatarDetails, showAvatarAndChat, setShowAvatarAndChat, setTts, setGender, setVoiceLanguage, tts, gender, voiceLanguage} = useSettingsContext()
   const { avatarCredits, elevenlabsCredits } = useStreamContext()
   const location = useLocation()
   const urlPath = location.pathname
@@ -59,15 +59,15 @@ export default function Navbar() {
                     <span className='mt-4 font-bold text-neutral-400'>Text-To-Speech Provider</span>
                     <div className='flex flex-col pl-4 gap-2'>
                         <div className='flex gap-2'>
-                            <input onChange={(e) => setTts(e.target.id)} type="radio" name="settingsTTS" id="microsoft_tts" defaultChecked className='bg-indigo-200' />
+                            <input onChange={(e) => setTts(e.target.id)} type="radio" name="settingsTTS" id="microsoft_tts" defaultChecked={tts === 'microsoft_tts'} className='bg-indigo-200' />
                             <label htmlFor="microsoft_tts">Microsoft TTS</label>
                         </div>
                         <div className='flex gap-2'>
-                            <input onChange={(e) => setTts(e.target.id)} type="radio" name="settingsTTS" id="openai_tts" className='bg-indigo-200' />
+                            <input onChange={(e) => setTts(e.target.id)} type="radio" name="settingsTTS" id="openai_tts" checked={tts === 'openai_tts'} className='bg-indigo-200' />
                             <label htmlFor="openai_tts">Open AI TTS</label>
                         </div>
                         <div className='flex flex-wrap gap-2'>
-                            <input onChange={(e) => setTts(e.target.id)} type="radio" name="settingsTTS" id="elevenlabs_tts" className='bg-indigo-200' />
+                            <input onChange={(e) => setTts(e.target.id)} type="radio" name="settingsTTS" id="elevenlabs_tts" checked={tts === 'elevenlabs_tts'} className='bg-indigo-200' />
                             <label htmlFor="elevenlabs_tts">Elevenlabs TTS</label>
                             {elevenlabsCredits && <span className='text-neutral-500 font-semibold text-sm'>Available Credits: <span className='text-indigo-500'>
                             {elevenlabsCredits}</span></span>
@@ -77,26 +77,26 @@ export default function Navbar() {
                     <span className='mt-4 font-bold text-neutral-400'>Gender</span>
                     <div className='flex flex-col pl-4 gap-2'>
                         <div className='flex gap-2'>
-                            <input onChange={(e) => setGender(e.target.id)} type="radio" name="settingsVoiceGender" id="female" defaultChecked className='bg-indigo-200' />
+                            <input onChange={(e) => setGender(e.target.id)} type="radio" name="settingsVoiceGender" id="female" defaultChecked={gender === 'female'} className='bg-indigo-200' />
                             <label htmlFor="female">Female</label>
                         </div>
                         <div className='flex gap-2'>
-                            <input onChange={(e) => setGender(e.target.id)} type="radio" name="settingsVoiceGender" id="male" className='bg-indigo-200' />
+                            <input onChange={(e) => setGender(e.target.id)} type="radio" name="settingsVoiceGender" id="male" checked={gender === 'male'} className='bg-indigo-200' />
                             <label htmlFor="male">Male</label>
                         </div>
                     </div>
-                    <span className='mt-4 font-bold text-neutral-400'>Voice Language</span>
-                    <div className='flex flex-col pl-4 gap-2'>
+                    <span className='mt-4 font-bold text-neutral-400'>Voice Language (Only MSFT)</span>
+                    <div className={`flex flex-col pl-4 gap-2 ${tts !== 'microsoft_tts' && 'bg-neutral-600 opacity-10 pointer-events-none rounded-2xl py-2'}`}>
                         <div className='flex gap-2'>
-                            <input onChange={(e) => setVoiceLanguage(e.target.id)} type="radio" name="settingsVoiceLanguage" id="german" defaultChecked className='bg-indigo-200' />
+                            <input onChange={(e) => setVoiceLanguage(e.target.id)} type="radio" name="settingsVoiceLanguage" id="german" defaultChecked={voiceLanguage === 'german'} className='bg-indigo-200' />
                             <label htmlFor="german">German</label>
                         </div>
                         <div className='flex gap-2'>
-                            <input onChange={(e) => setVoiceLanguage(e.target.id)} type="radio" name="settingsVoiceLanguage" id="swissgerman" className='bg-indigo-200' />
-                            <label htmlFor="swissgerman">Swissgerman (only MS TTS)</label>
+                            <input onChange={(e) => setVoiceLanguage(e.target.id)} type="radio" name="settingsVoiceLanguage" id="swissgerman" checked={voiceLanguage === 'swissgerman'} className='bg-indigo-200' />
+                            <label htmlFor="swissgerman">Swissgerman (only female)</label>
                         </div>
                         <div className='flex gap-2'>
-                            <input onChange={(e) => setVoiceLanguage(e.target.id)} type="radio" name="settingsVoiceLanguage" id="english" className='bg-indigo-200' />
+                            <input onChange={(e) => setVoiceLanguage(e.target.id)} type="radio" name="settingsVoiceLanguage" id="english" checked={voiceLanguage === 'english'} className='bg-indigo-200' />
                             <label htmlFor="english">English</label>
                         </div>
                     </div>

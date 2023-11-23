@@ -3,7 +3,8 @@ import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import useSettingsContext from '../hooks/useSettingsContext'
 import Button from './Button'
 import { GridLoader } from 'react-spinners'
-
+import maleIdleVideo from '../idle_male.mp4'
+import femaleIdleVideo from '../idle8.mp4'
 
 export default function AvatarStream({ message, audio }) {
   const {
@@ -18,7 +19,7 @@ export default function AvatarStream({ message, audio }) {
   } = useStreamContext()
   const { showAvatarDetails, showAvatarAndChat, gender } = useSettingsContext()
   const controls = useAnimation()
-  const idleVideo = gender === 'male' ? ('./src/idle_male.mp4') : (gender === 'female' && ('./src/idle8.mp4'))
+  const idleVideo = gender === 'male' ? (maleIdleVideo) : (gender === 'female' && (femaleIdleVideo))
 
   console.log(peerConnection)
   console.log(streamingStatus)
