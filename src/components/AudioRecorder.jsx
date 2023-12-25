@@ -85,14 +85,18 @@ export default function AudioRecorder({ onChangeInput, setPrompt, textareaRef })
         console.log(response)
         const audioAsText = await response.json()
         console.log(audioAsText.message)
-
-        // setPrompt(prevPrompt => `${prevPrompt} ${audioAsText.message}`)
-        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set
-        const event = new Event('input', { bubbles: true })
-        nativeInputValueSetter.call(textareaRef, `${textareaRef.value} ${audioAsText.message}`)
-        textareaRef.dispatchEvent(event)
-
-        onChangeInput(textareaRef)
+        console.log(textareaRef)
+        
+        if (textareaRef) {
+          const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set
+          const event = new Event('input', { bubbles: true })
+          nativeInputValueSetter.call(textareaRef, textareaRef ? `${textareaRef?.value} ${audioAsText.message}` : audioAsText.message)
+          textareaRef.dispatchEvent(event)
+          
+          onChangeInput(textareaRef)
+        } else {
+          setPrompt(prevPrompt => `${prevPrompt} ${audioAsText.message}`)
+        }
       } catch (error) {
         console.log(error)  
         return 'AudioRecording couldnt be send to the Backend.'
