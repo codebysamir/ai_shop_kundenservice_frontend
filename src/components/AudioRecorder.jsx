@@ -1,5 +1,6 @@
 import { Microphone, Record } from '@phosphor-icons/react';
 import React, { useRef, useState } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 const LOCAL_URL = import.meta.env.VITE_LOCAL_URL
 const mimeType = 'audio/mp3'
@@ -13,33 +14,52 @@ export default function AudioRecorder({ onChangeInput, setPrompt, textareaRef })
 
 
     const getMicrophonePermission = async () => {
-        if ("MediaRecorder" in window) {
-            try {
-                const checkPermission = await navigator.permissions.query({name: 'microphone'})
-                console.log(checkPermission.state)
-                // if (checkPermission.state === 'granted') {}
-                const streamData = await navigator.mediaDevices.getUserMedia({
-                    audio: true,
-                    video: false,
-                });
-                setPermission(true);
-                setStream(streamData);
-            } catch (err) {
-                alert(err.message);
+      if ("MediaRecorder" in window) {
+        try {
+          let browser = browserDetector()
+          console.log(browser)
+          if (browser !== 'Firefox') {
+            const checkPermission = await navigator.permissions.query({name: 'microphone'})
+            console.log(`Microphone Permission State: ${checkPermission.state}`)
+            if (checkPermission.state === 'prompt' || checkPermission.state === 'granted') {
+              const streamData = await navigator.mediaDevices.getUserMedia({
+                  audio: true,
+                  video: false,
+              });
+              setStream(streamData);
+              setPermission(true);
+              return streamData
+            } else {
+              setPermission(false);
+              setStream(null)
+              alert(checkPermission.state)
+              return null
             }
-        } else {
-            alert("The MediaRecorder API is not supported in your browser.");
+          } else {
+            const streamData = await navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: false,
+            });
+            setPermission(true);
+            setStream(streamData);
+          }
+        } catch (err) {
+            alert(err.message);
+            setPermission(false)
         }
+      } else {
+        alert("The MediaRecorder API is not supported in your browser.");
+      }
     }
 
-    console.log('check 2')
   
     const startRecording = async () => {
-      await getMicrophonePermission()
-      console.log('check 1')
-      if (!permission) return console.log('No Permission')
+      const localStream = await getMicrophonePermission()
+      console.log(localStream)
+      if (!localStream) return console.log('No Streamdata')
+      if (!permission && !localStream) return console.log('No Permission')
       
-      mediaRecorderRef.current = new MediaRecorder(stream);
+      mediaRecorderRef.current = new MediaRecorder(stream || localStream);
 
       mediaRecorderRef.current.start();
       setRecording(true);
@@ -116,4 +136,17 @@ export default function AudioRecorder({ onChangeInput, setPrompt, textareaRef })
         }
       </>
     );
+}
+
+function browserDetector() {
+  const browserArray = ['Edg', 'Opr', 'Chrome', 'Firefox', 'Safari']
+  let browser
+  let userAgent = navigator.userAgent
+
+  if (userAgent.indexOf('Firefox') > -1) {
+    browser = 'Firefox' 
+  } else {
+    browser = 'Other browser'
+  }
+  return browser
 }
