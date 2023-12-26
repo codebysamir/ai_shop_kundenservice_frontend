@@ -42,6 +42,7 @@ export default function AudioRecorder({ onChangeInput, setPrompt, textareaRef })
             });
             setPermission(true);
             setStream(streamData);
+            return streamData
           }
         } catch (err) {
             alert(err.message);
